@@ -10,14 +10,14 @@ fixdel
 let mapleader = ","
 
 :imap jk <ESC> 
-
+:imap :w <ESC>:w<CR> 
 set wildignore=*.swp,*.bak,*.pyc,*.pdf,*.png,*.so,*.o,*.obj,*.root,CVS
 
 set hlsearch "highlight all matches of searched term
 
 map <C-g> <ESC>:! bash %<CR>
 map <C-s> <ESC>:! scramv1 b<CR>
-map <S-l> <ESC>:ls<CR>
+map <S-l> <ESC>:FufBuffer<CR>
 map <C-t> <ESC>:tabedit 
 "open from same directory as current file
 map <C-e> <ESC>:tabedit <C-R>=expand("%:p:h").'/'<CR>
@@ -31,6 +31,11 @@ vmap ,C :s/^/\/\//g<CR>:let @/ = ""<CR>
 map  ,C :s/^/\/\//g<CR>:let @/ = ""<CR>
 vmap ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 map  ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
+
+map cn <ESC>:cn<CR>
+map cp <ESC>:cp<CR>
+
+set makeprg=scram\ b
 
 " Always show line numbers, but only in current window.
 set number
