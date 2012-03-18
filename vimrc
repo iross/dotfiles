@@ -1,5 +1,6 @@
+call pathogen#infect()
+
 set t_Co=256
-let g:solarized_termcolors=256
 colorscheme twilight256
 set background=dark
 inoremap ^? ^H
@@ -135,3 +136,4 @@ fun! CurTime()
   let ftime=ftime." ".strftime("%b,%d %y %H:%M:%S")
   return ftime
 endf
+
