@@ -1,12 +1,16 @@
 call pathogen#infect()
 
-set t_Co=256
-colorscheme twilight256
+set laststatus=2
+
+"set t_Co=256
+colorscheme test
 set background=dark
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
 fixdel
+
+nnoremap <F5> :GundoToggle<CR>
 
 let mapleader = ","
 
@@ -19,9 +23,9 @@ set hlsearch "highlight all matches of searched term
 map <C-g> <ESC>:! bash %<CR>
 map <C-s> <ESC>:! scramv1 b<CR>
 map <S-l> <ESC>:FufBuffer<CR>
-map <C-t> <ESC>:tabedit 
+map <C-t> <ESC>:edit 
 "open from same directory as current file
-map <C-e> <ESC>:tabedit <C-R>=expand("%:p:h").'/'<CR>
+map <C-e> <ESC>:edit <C-R>=expand("%:p:h").'/'<CR>
 
 "insert and remove comments in visual and normal mode
 vmap ,c :s/^/#/g<CR>:let @/ = ""<CR>
@@ -40,14 +44,15 @@ set makeprg=scram\ b
 
 " Always show line numbers, but only in current window.
 set number
-:au WinEnter * :setlocal number
-:au WinLeave * :setlocal nonumber
+":au WinEnter * :setlocal number
+":au WinLeave * :setlocal nonumber
 
 " tab navigation mapped to tl and th
-map <C-l> :tabnext<CR>
-map <C-h> :tabprev<CR>
+map <c-l> :tabnext<cr>
+map <c-h> :tabprev<cr>
 
-set mouse=a " mouse support
+"set mouse=a
+set mouse=vr " mouse support
 
 :set tabstop=4
 :set shiftwidth=4
@@ -91,6 +96,8 @@ nmap <silent> ,/ :nohlsearch<CR>
 
 "au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
 "au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
+
+
 set statusline=%!MyStatusLine('Enter')
 
 " Source the vimrc file after saving it
@@ -137,3 +144,4 @@ fun! CurTime()
   return ftime
 endf
 
+colorscheme test
