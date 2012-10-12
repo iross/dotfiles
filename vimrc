@@ -1,14 +1,15 @@
+runtime autoload/functionator.vim
 call pathogen#infect()
-
 set laststatus=2
 
-"set t_Co=256
-colorscheme test
-set background=dark
+set background=light
+colorscheme solarized
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
 fixdel
+
+set expandtab 
 
 nnoremap <F5> :GundoToggle<CR>
 
@@ -37,10 +38,17 @@ map  ,C :s/^/\/\//g<CR>:let @/ = ""<CR>
 vmap ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 map  ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 
+map ,' ciw'<C-R>"'<ESC>
+map ," ciw"<C-R>""<ESC>
+map ,( ciw(<C-R>")<ESC>
+
 map cn <ESC>:cn<CR>
 map cp <ESC>:cp<CR>
 
-set makeprg=scram\ b
+map ,v :set paste<CR>
+map ,vv :set nopaste<CR>
+
+set makeprg=scram\ b 
 
 " Always show line numbers, but only in current window.
 set number
@@ -97,6 +105,8 @@ nmap <silent> ,/ :nohlsearch<CR>
 "au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
 "au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
 
+au FileType c,cpp setlocal comments-=:// comments+=f://
+au FileType py,sh setlocal comments-=:# comments+=f:#
 
 set statusline=%!MyStatusLine('Enter')
 
@@ -144,4 +154,3 @@ fun! CurTime()
   return ftime
 endf
 
-colorscheme test
