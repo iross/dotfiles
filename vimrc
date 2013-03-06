@@ -2,8 +2,8 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=light
-colorscheme solarized
+set background=dark
+colorscheme twilight256
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
@@ -14,6 +14,10 @@ set expandtab
 nnoremap <F5> :GundoToggle<CR>
 
 let mapleader = ","
+
+" Delete trailing whitespace before saving in cpp and python
+autocmd BufWritePre *.cc,*.h,*py :%s/\s\+$//e
+
 
 :imap jk <ESC> 
 :imap :w <ESC>:w<CR> 
@@ -44,6 +48,10 @@ map ,( ciw(<C-R>")<ESC>
 
 map cn <ESC>:cn<CR>
 map cp <ESC>:cp<CR>
+
+
+map ,n :set number<CR>
+map ,nn :set nonumber<CR>
 
 map ,v :set paste<CR>
 map ,vv :set nopaste<CR>
@@ -79,6 +87,8 @@ set incsearch		" do incremental searching
 set autoindent		" always set autoindenting on
 set cursorline "highlight cursor line
 set cursorcolumn "highlight cursor column
+
+au VimEnter * highlight clear SignColumn
 
 " clear search with ,/
 nmap <silent> ,/ :nohlsearch<CR> 
