@@ -2,6 +2,7 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
+
 set background=dark
 colorscheme twilight256
 inoremap ^? ^H
@@ -164,3 +165,4 @@ fun! CurTime()
   return ftime
 endf
 
+set relativenumber
