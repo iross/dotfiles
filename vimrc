@@ -2,13 +2,13 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-
 set background=dark
 colorscheme twilight256
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
 fixdel
+
 
 set expandtab 
 
@@ -19,10 +19,11 @@ let mapleader = ","
 " Delete trailing whitespace before saving in cpp and python
 autocmd BufWritePre *.cc,*.h,*py :%s/\s\+$//e
 
-
 :imap jk <ESC> 
 :imap :w <ESC>:w<CR> 
 set wildignore=*.swp,*.bak,*.pyc,*.pdf,*.png,*.so,*.o,*.obj,*.root,CVS
+
+autocmd FileType tex set textwidth=80
 
 set hlsearch "highlight all matches of searched term
 
@@ -50,12 +51,13 @@ map ,( ciw(<C-R>")<ESC>
 map cn <ESC>:cn<CR>
 map cp <ESC>:cp<CR>
 
-
 map ,n :set number<CR>
 map ,nn :set nonumber<CR>
 
 map ,v :set paste<CR>
 map ,vv :set nopaste<CR>
+
+nmap <silent> <leader>s :set spell!<CR>
 
 set makeprg=scram\ b 
 
