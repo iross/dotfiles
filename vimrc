@@ -44,6 +44,9 @@ map  ,C :s/^/\/\//g<CR>:let @/ = ""<CR>
 vmap ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 map  ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 
+map ,l :TlistToggle<CR>
+let Tlist_GainFocus_On_ToggleOpen = 1
+
 map ,' ciw'<C-R>"'<ESC>
 map ," ciw"<C-R>""<ESC>
 map ,( ciw(<C-R>")<ESC>
