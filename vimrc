@@ -46,6 +46,8 @@ map  ,CC :s/^\/\///g<CR>:let @/ = ""<CR>
 
 map ,l :TlistToggle<CR>
 let Tlist_GainFocus_On_ToggleOpen = 1
+let tlist_tex_settings   = 'latex;s:sections;g:graphics;l:labels'
+let tlist_make_settings  = 'make;m:makros;t:targets'
 
 map ,' ciw'<C-R>"'<ESC>
 map ," ciw"<C-R>""<ESC>
