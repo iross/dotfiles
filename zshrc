@@ -18,7 +18,7 @@ export PATH=/Library/Frameworks/Python.framework/Versions/Current/bin/:$PATH
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="custom"
+ZSH_THEME="iar"
 
 alias c='cd -p '
 alias v='vim '
