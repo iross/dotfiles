@@ -172,7 +172,9 @@ fun! CurTime()
   return ftime
 endf
 
-set relativenumber
+if version >= 730
+    set relativenumber
+endif
 
 " change the default EasyMotion shading to something more readable with Solarized
 hi link EasyMotionTarget ErrorMsg
