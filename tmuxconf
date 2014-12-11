@@ -1,7 +1,6 @@
 set -s      escape-time         0
 set -g      base-index          1
 set -g      bell-action         any
-set -g      default-command     "exec ${SHELL}red-l"
 set -g      history-limit       10000
 set -g      prefix              C-Space
 set -g      pane-border-fg black
