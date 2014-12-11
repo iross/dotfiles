@@ -1,5 +1,5 @@
 # .bashrc
-PATH=/home/iaross/bin:/home/iaross/local/bin:/home/iaross/bin/bin:$PATH
+PATH=/home/iaross/bin:/home/iaross/local/bin:$PATH
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
