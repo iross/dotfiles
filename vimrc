@@ -1,3 +1,12 @@
+" Snippets variables
+ let g:snips_author='Ian Ross'
+ let g:author='Ian Ross'
+ let g:snips_email='iross@cs.wisc.edu'
+ let g:email='iross@cs.wisc.edu'
+ let g:snips_github='https://github.com/iross'
+ let g:github='https://github.com/iross'
+
+
 runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
