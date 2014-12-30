@@ -24,6 +24,7 @@ alias cd3="cd ../../.."
 alias root="root -l"
 alias gap="git add -p"
 alias gitdiff="git --no-pager diff"
+alias q="condor_q iaross"
 
 function mkd ()
 {
