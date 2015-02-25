@@ -11,7 +11,7 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=light
+set background=dark
 colorscheme solarized
 inoremap ^? ^H
 set backspace=indent,eol,start
@@ -38,7 +38,6 @@ set hlsearch "highlight all matches of searched term
 
 map <C-g> <ESC>:! bash %<CR>
 map <C-s> <ESC>:! scramv1 b<CR>
-map <S-l> <ESC>:FufBuffer<CR>
 map <C-t> <ESC>:edit 
 "open from same directory as current file
 map <C-e> <ESC>:edit <C-R>=expand("%:p:h").'/'<CR>
@@ -71,9 +70,13 @@ map ,nn :set nonumber<CR>
 map ,v :set paste<CR>
 map ,vv :set nopaste<CR>
 
-nmap <silent> <leader>s :set spell!<CR>
+map ,p :pu<CR>
+map ,P :Pu<CR>
 
-set makeprg=scram\ b 
+map <leader>l <ESC>:CtrlP<CR>
+map <S-l> <ESC>:CtrlPBuffer<CR>
+
+nmap <silent> <leader>s :set spell!<CR>
 
 " Always show line numbers, but only in current window.
 set number
