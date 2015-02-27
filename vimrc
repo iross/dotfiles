@@ -2,8 +2,8 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=light
-colorscheme solarized
+set background=dark
+colorscheme gotham
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
@@ -173,6 +173,7 @@ fun! CurTime()
 endf
 
 set relativenumber
+set colorcolumn=80
 
 " change the default EasyMotion shading to something more readable with Solarized
 hi link EasyMotionTarget ErrorMsg
