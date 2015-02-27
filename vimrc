@@ -1,9 +1,19 @@
+" Snippets variables
+ let g:snips_author='Ian Ross'
+ let g:author='Ian Ross'
+ let g:snips_email='iross@cs.wisc.edu'
+ let g:email='iross@cs.wisc.edu'
+ let g:snips_github='https://github.com/iross'
+ let g:github='https://github.com/iross'
+
+
 runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
 set background=dark
 colorscheme gotham
+
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
@@ -29,7 +39,6 @@ set hlsearch "highlight all matches of searched term
 
 map <C-g> <ESC>:! bash %<CR>
 map <C-s> <ESC>:! scramv1 b<CR>
-map <S-l> <ESC>:FufBuffer<CR>
 map <C-t> <ESC>:edit 
 "open from same directory as current file
 map <C-e> <ESC>:edit <C-R>=expand("%:p:h").'/'<CR>
@@ -62,9 +71,13 @@ map ,nn :set nonumber<CR>
 map ,v :set paste<CR>
 map ,vv :set nopaste<CR>
 
-nmap <silent> <leader>s :set spell!<CR>
+map ,p :pu<CR>
+map ,P :Pu<CR>
 
-set makeprg=scram\ b 
+map <leader>l <ESC>:CtrlP<CR>
+map <S-l> <ESC>:CtrlPBuffer<CR>
+
+nmap <silent> <leader>s :set spell!<CR>
 
 " Always show line numbers, but only in current window.
 set number
@@ -172,8 +185,10 @@ fun! CurTime()
   return ftime
 endf
 
-set relativenumber
 set colorcolumn=80
+if version >= 730
+    set relativenumber
+endif
 
 " change the default EasyMotion shading to something more readable with Solarized
 hi link EasyMotionTarget ErrorMsg
