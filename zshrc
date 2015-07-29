@@ -1,18 +1,8 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
-#use rvm for ruby management. I really need to set up clean installs of ruby/python...
-source /Users/iross/.rvm/scripts/rvm
-
-# todo: clean up this junk IAR 17.Aug.2013
-export ROOTSYS=/usr/local
-export PATH=/usr/local/bin/:$PATH:$ROOTSYS/bin:/sw/bin/
-export PATH=/Applications/Octave.app/Contents/Resources/bin:$PATH
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTSYS/lib
-export PYTHONDIR=$PYTHONDIR:/opt/local/Library/Frameworks/Python.framework/Versions/2.7/
-export PYTHONPATH=$PYTHONPATH:$ROOTSYS/lib/root
-
-export PATH=/Library/Frameworks/Python.framework/Versions/Current/bin/:$PATH
+PATH=$PATH:$HOME/bin
+PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -24,7 +14,7 @@ alias c='cd -p '
 alias v='vim '
 alias c='cd -P'
 alias grep="grep --color=auto"
-alias ql='qlmanage -p 2>/dev/null'
+alias gitdiff='git --no-pager diff'
 alias e='emacs -nw'
 alias h='history | grep '
 alias ll='ls -l'
@@ -34,6 +24,8 @@ alias cd2="cd ../.."
 alias cd3="cd ../../.."
 alias root="root -l"
 alias gap="git add -p"
+alias gd="git --no-pager diff"
+alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
 
 function mkd ()
 {

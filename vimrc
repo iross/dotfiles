@@ -14,7 +14,8 @@ call pathogen#infect()
 set laststatus=2
 
 set background=dark
-colorscheme solarized
+colorscheme gotham
+
 inoremap ^? ^H
 set backspace=indent,eol,start
 set t_kb=
@@ -186,6 +187,7 @@ fun! CurTime()
   return ftime
 endf
 
+set colorcolumn=80
 if version >= 730
     set relativenumber
 endif
