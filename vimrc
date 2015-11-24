@@ -6,6 +6,8 @@
  let g:snips_github='https://github.com/iross'
  let g:github='https://github.com/iross'
 
+ let g:ultisnips_python_style='google'
+
 
 runtime autoload/functionator.vim
 call pathogen#infect()

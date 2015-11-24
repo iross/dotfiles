@@ -20,11 +20,6 @@ set -g default-terminal "xterm-256color"
 
 unbind C-b
 unbind Space
-unbind M-1
-unbind M-2
-unbind M-3
-unbind M-4
-unbind M-5
 bind | split-window -h
 bind - split-window -v
 bind    "`"     select-window -t 0
@@ -48,6 +43,7 @@ bind k     select-pane -U
 bind j     select-pane -D
 bind l     select-pane -R
 bind h     select-pane -L
+bind v select-layout even-horizontal
 bind -r C-k resize-pane -U
 bind -r C-j resize-pane -D
 bind -r C-l resize-pane -R
@@ -64,3 +60,5 @@ set -g status-right '#[fg=cyan]#(cut -d " " -f 1-3 /proc/loadavg)#[default] #[fg
 set-window-option -g window-status-current-bg blue
 setw -g automatic-rename
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+bind-key a send-prefix
