@@ -29,6 +29,15 @@ alias gitdiff="git --no-pager diff"
 alias gitundo="git reset --soft HEAD~1"
 alias q="condor_q iaross"
 
+function psgrep ()
+{
+    if hash ack 2>/dev/null; then
+        ps aux | ack $1 
+    else
+        ps aux | grep $1 | grep -v grep
+    fi
+}
+
 function mkd ()
 {
     mkdir $1
