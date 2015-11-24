@@ -1,5 +1,5 @@
 # .bashrc
-PATH=/home/iaross/bin:/home/iaross/local/bin:$PATH
+PATH=/home/iaross/bin/:/home/iaross/local/bin:$PATH
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -9,6 +9,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+alias mongo='mongo -u iaross -p -authenticationDatabase admin'
+alias mongodev='/usr/bin/mongo -u iaross -p -authenticationDatabase admin --port 27777'
 alias c='cd -p '
 alias v='vim '
 alias c='cd -P'
@@ -24,6 +26,7 @@ alias cd3="cd ../../.."
 alias root="root -l"
 alias gap="git add -p"
 alias gitdiff="git --no-pager diff"
+alias gitundo="git reset --soft HEAD~1"
 alias q="condor_q iaross"
 
 function mkd ()
