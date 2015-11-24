@@ -9,6 +9,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+export LD_LIBRARY_PATH=/home/iaross/lib64/
+
 alias c='cd -p '
 alias v='vim '
 alias c='cd -P'
@@ -25,6 +27,15 @@ alias root="root -l"
 alias gap="git add -p"
 alias gitdiff="git --no-pager diff"
 alias q="condor_q iaross"
+
+function psgrep ()
+{
+    if hash ack 2>/dev/null; then
+        ps aux | ack $1 
+    else
+        ps aux | grep $1 | grep -v grep
+    fi
+}
 
 function mkd ()
 {
