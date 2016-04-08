@@ -21,7 +21,6 @@ set backspace=indent,eol,start
 set t_kb=
 fixdel
 
-
 set expandtab 
 
 nnoremap <F5> :GundoToggle<CR>
