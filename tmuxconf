@@ -62,3 +62,8 @@ setw -g automatic-rename
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 bind-key a send-prefix
+
+bind P paste-buffer
+bind-key -t vi-copy 'v' begin-selection
+bind-key -t vi-copy 'y' copy-selection
+bind-key -t vi-copy 'r' rectangle-toggle
