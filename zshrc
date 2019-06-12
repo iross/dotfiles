@@ -1,8 +1,8 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-PATH=$PATH:$HOME/bin
-PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/iross/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -10,6 +10,12 @@ PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # time that oh-my-zsh is loaded.
 ZSH_THEME="iar"
 
+alias ksvc='kubectl get svc'
+alias krm='kubectl delete '
+alias kp='kubectl get pods'
+alias kl='kubectl logs -f '
+alias kg='kubectl get '
+alias kc='kubectl'
 alias c='cd -p '
 alias v='vim '
 alias c='cd -P'
@@ -25,7 +31,26 @@ alias cd3="cd ../../.."
 alias root="root -l"
 alias gap="git add -p"
 alias gd="git --no-pager diff"
+alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
+
+function ds()
+{
+    docker exec -it $1 /bin/bash
+}
+
+function ks()
+{
+    kubectl exec -it $1 /bin/bash
+}
+
+
+function nn()
+{
+    DATE=`date +%Y%b%d`
+    touch /Users/iross/Google\ Drive/notes/notes/$DATE.md
+    /Users/iross/bin/vim /Users/iross/Google\ Drive/notes/notes/$DATE.md
+}
 
 function mkd ()
 {
@@ -56,97 +81,176 @@ function resubmitJobs ()
 {
      ls *rescue$1 | grep -v wrapper | xargs -n 1 -I % farmoutAnalysisJobs --rescue-dag-file=%
 }
-function gs ()
-{
-    ack -l todo $(git rev-parse --show-toplevel)/* > $(git rev-parse --show-toplevel)/.todo
-    git status
-}
+#function gs ()
+#{
+#    ack -l todo $(git rev-parse --show-toplevel)/* > $(git rev-parse --show-toplevel)/.todo
+#    git status
+#}
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Comment this out to disable weekly auto-update checks
- #DISABLE_AUTO_UPDATE="true"
- DISABLE_UPDATE_PROMPT="true"
-# Uncomment following line if you want to disable colors in ls
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
 
-# Uncomment following line if you want to disable autosetting terminal title.
+# Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=()
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
 #
-bindkey "^R" history-incremental-search-backward
-bindkey "^E" end-of-line
-bindkey "^A" beginning-of-line
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 export PYTHONSTARTUP=~/.pystartup
+export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
 
-# This keeps the number of todos always available the right hand side of my
-# command line. I filter it to only count those tagged as "+next", so it's more
-# of a motivation to clear out the list.
-todo_count(){
-  if $(which todo &> /dev/null)
-  then
-    num=$(echo $(todo list $1 | wc -l))
-    let todos=num-2
-    if [ $todos != 0 ]
-    then
-      echo "$todos"
-    else
-      echo ""
+select_items_command="todoist --namespace --project-namespace list | peco | cut -d ' ' -f 1 | tr '\n' ' '"
+
+function insert-in-buffer () {
+    if [ -n "$1" ]; then
+        local new_left=""
+        if [ -n "$LBUFFER" ]; then
+            new_left="${new_left}${LBUFFER} "
+        fi
+        if [ -n "$2" ]; then
+            new_left="${new_left}${2} "
+        fi
+        new_left="${new_left}$1"
+        BUFFER=${new_left}${RBUFFER}
+        CURSOR=${#new_left}
     fi
-  else
-    echo ""
-  fi
 }
 
-function todo_prompt() {
-  local COUNT=$(todo_count $1);
-  if [ $COUNT != 0 ]; then
-    echo "$1: $COUNT";
-  else
-    echo "";
-  fi
+# todoist find item
+function peco-todoist-item () {
+    local SELECTED_ITEMS="$(eval ${select_items_command})"
+    insert-in-buffer $SELECTED_ITEMS
+}
+zle -N peco-todoist-item
+bindkey "^xtt" peco-todoist-item
+
+# todoist find project
+function peco-todoist-project () {
+    local SELECTED_PROJECT="$(todoist --project-namespace projects | peco | head -n1 | cut -d ' ' -f 1)"
+    insert-in-buffer "${SELECTED_PROJECT}" "-P"
+}
+zle -N peco-todoist-project
+bindkey "^xtp" peco-todoist-project
+
+# todoist find labels
+function peco-todoist-labels () {
+    local SELECTED_LABELS="$(todoist labels | peco | cut -d ' ' -f 1 | tr '\n' ',' | sed -e 's/,$//')"
+    insert-in-buffer "${SELECTED_LABELS}" "-L"
+}
+zle -N peco-todoist-labels
+bindkey "^xtl" peco-todoist-labels
+
+# todoist select date
+function peco-todoist-date () {
+    date -v 1d &>/dev/null
+    if [ $? -eq 0 ]; then
+        # BSD date option
+        OPTION="-v+#d"
+    else
+        # GNU date option
+        OPTION="-d # day"
+    fi
+
+    local SELECTED_DATE="$(seq 0 30 | xargs -I# date $OPTION '+%d/%m/%Y %a' | peco | cut -d ' ' -f 1)"
+    insert-in-buffer "'${SELECTED_DATE}'" "-d"
+}
+zle -N peco-todoist-date
+bindkey "^xtd" peco-todoist-date
+
+function todoist-exec-with-select-task () {
+    if [ -n "$2" ]; then
+        BUFFER="todoist $1 $(echo "$2" | tr '\n' ' ')"
+        CURSOR=$#BUFFER
+        zle accept-line
+    fi
 }
 
-function notes_count() {
-  if [[ -z $1 ]]; then
-    local NOTES_PATTERN="TODO|FIXME|HACK";
-  else
-    local NOTES_PATTERN=$1;
-  fi
-  grep -ERn "\b($NOTES_PATTERN)\b" {app,config,lib,spec,test} 2>/dev/null | wc -l | sed 's/ //g'
+# todoist close
+function peco-todoist-close() {
+    local SELECTED_ITEMS="$(eval ${select_items_command})"
+    todoist-exec-with-select-task close $SELECTED_ITEMS
 }
+zle -N peco-todoist-close
+bindkey "^xtc" peco-todoist-close
 
-function notes_prompt() {
-  local COUNT=$(notes_count $1);
-  if [ $COUNT != 0 ]; then
-    echo "$1: $COUNT";
-  else
-    echo "";
-  fi
+# todoist delete
+function peco-todoist-delete() {
+    local SELECTED_ITEMS="$(eval ${select_items_command})"
+    todoist-exec-with-select-task delete $SELECTED_ITEMS
 }
+zle -N peco-todoist-delete
+bindkey "^xtk" peco-todoist-delete
 
-#http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
-export MARKPATH=$HOME/.marks
-function jump { 
-    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
+# todoist open
+function peco-todoist-open() {
+    local SELECTED_ITEMS="$(eval ${select_items_command})"
+    todoist-exec-with-select-task "show --browse" $SELECTED_ITEMS
 }
-function mark { 
-    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
-}
-function unmark { 
-    rm -i $MARKPATH/$1 
-}
-function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
-}
+zle -N peco-todoist-open
+bindkey "^xto" peco-todoist-open
