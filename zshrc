@@ -2,7 +2,7 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/iross/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -254,3 +254,7 @@ function peco-todoist-open() {
 }
 zle -N peco-todoist-open
 bindkey "^xto" peco-todoist-open
+
+bindkey -v
+export KEYTIMEOUT=1
+
