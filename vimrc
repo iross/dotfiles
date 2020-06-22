@@ -13,7 +13,7 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=light
+set background=dark
 colorscheme solarized
 
 inoremap ^? ^H
@@ -194,3 +194,5 @@ endif
 " change the default EasyMotion shading to something more readable with Solarized
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
+
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
