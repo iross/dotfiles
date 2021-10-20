@@ -1,6 +1,9 @@
 #! /bin/bash
-ln -s ../.tmux.conf tmuxconf
-ln -s ../.vimrc vimrc
+cat tmuxconf >> ../.tmux.conf
+cat vimrc >> ../.vimrc
+cat gitconfig >> ../.gitconfig
+cat bashrc >> ../.bashrc
+cat bash_aliases >> ../.bash_aliases
 cd ..
 git clone https://github.com/iross/.vim .vim
 cd .vim
