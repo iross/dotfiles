@@ -13,7 +13,7 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=dark
+set background=light
 colorscheme solarized
 
 inoremap ^? ^H
@@ -196,3 +196,4 @@ hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
 
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+let g:syntastic_python_checkers=['mypy']
