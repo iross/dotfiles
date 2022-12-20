@@ -34,6 +34,33 @@ alias gd="git --no-pager diff"
 alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
 
+function tn()
+{
+    desc=$(task +ACTIVE _unique description)
+    uuid=$(task +ACTIVE _unique uuid)
+    tags=$(task +ACTIVE _unique tags)
+    if echo $tags | grep -q "work"
+    then
+        note_path="/Users/iaross/sync/obsidian/Work/tasks/${desc}_${uuid}.md"
+        if [ ! -f $note_path ]
+        then
+            echo "# $desc" >> $note_path
+        else
+            echo "File exists!"
+        fi
+        url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${desc}_${uuid}"
+        open $url
+        echo "[[${desc}_${uuid}]]" | pbcopy
+    else
+        echo "## $desc"| pbcopy
+    fi
+}
+
+function st()
+{
+    task start $1
+}
+
 function ds()
 {
     docker exec -it $1 /bin/bash
@@ -258,3 +285,6 @@ bindkey "^xto" peco-todoist-open
 bindkey -v
 export KEYTIMEOUT=1
 
+
+# Created by `pipx` on 2022-08-31 17:49:53
+export PATH="$PATH:/Users/iaross/.local/bin"
