@@ -38,19 +38,26 @@ function tn()
 {
     desc=$(task +ACTIVE _unique description)
     uuid=$(task +ACTIVE _unique uuid)
+    proj=$(task +ACTIVE _unique project)
     tags=$(task +ACTIVE _unique tags)
+    estimate=$(task +ACTIVE _unique estimate)
     if echo $tags | grep -q "work"
     then
-        note_path="/Users/iaross/sync/obsidian/Work/tasks/${desc}_${uuid}.md"
+        note_path="/Users/iaross/sync/obsidian/Work/tasks/${desc}.md"
         if [ ! -f $note_path ]
         then
-            echo "# $desc" >> $note_path
+            echo "---" >> $note_path
+            echo "tw_uuid: $uuid" >> $note_path
+            echo "tw_project: $proj" >> $note_path
+            echo "tw_estimate: $estmagte" >> $note_path
+            echo "tw_tags: $tags" >> $note_path
+            echo "---" >> $note_path
         else
             echo "File exists!"
         fi
-        url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${desc}_${uuid}"
+        url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${desc}"
         open $url
-        echo "[[${desc}_${uuid}]]" | pbcopy
+        echo "[[${desc}]]" | pbcopy
     else
         echo "## $desc"| pbcopy
     fi
