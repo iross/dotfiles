@@ -34,6 +34,26 @@ alias gd="git --no-pager diff"
 alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
 
+function td()
+{
+    task done $1
+    ts $1
+}
+function ts()
+{
+    _end=$(task $1 _unique end)
+    _end=$(date -r $_end)
+    desc=$(task $1 _unique description)
+    estimate=$(task $1 _unique estimate)
+    echo Time summary for \"$desc\" copied to clipboard.
+    echo "## Time Summary \n \`\`\` \n Completed $_end\n $(timew summary $desc :all )\nEstimate: $estimate\n\`\`\`" | pbcopy
+}
+function ta()
+{
+    task +ACTIVE
+    task +ACTIVE _id | tr -d '\n'| pbcopy
+}
+
 function tn()
 {
     desc=$(task +ACTIVE _unique description)
@@ -167,6 +187,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+setopt CSH_NULL_GLOB
+unsetopt correct_all
 
 # User configuration
 
