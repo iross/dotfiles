@@ -88,6 +88,13 @@ function st()
     task start $1
 }
 
+function gstage()
+{
+    git tag -d staging
+    git push origin :refs/tags/staging
+    git tag staging
+    git push origin --tags
+}
 function ds()
 {
     docker exec -it $1 /bin/bash
