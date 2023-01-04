@@ -13,8 +13,8 @@ runtime autoload/functionator.vim
 call pathogen#infect()
 set laststatus=2
 
-set background=light
-colorscheme solarized
+set background=dark
+colorscheme desert
 
 inoremap ^? ^H
 set backspace=indent,eol,start

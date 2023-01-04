@@ -142,6 +142,13 @@ function resubmitJobs ()
 {
      ls *rescue$1 | grep -v wrapper | xargs -n 1 -I % farmoutAnalysisJobs --rescue-dag-file=%
 }
+function gstage ()
+{
+    git tag -d staging;
+    git push origin :refs/tags/staging
+    git tag staging
+    echo git push origin --tags
+}
 #function gs ()
 #{
 #    ack -l todo $(git rev-parse --show-toplevel)/* > $(git rev-parse --show-toplevel)/.todo
@@ -322,5 +329,3 @@ bindkey -v
 export KEYTIMEOUT=1
 
 
-# Created by `pipx` on 2022-08-31 17:49:53
-export PATH="$PATH:/Users/iaross/.local/bin"
