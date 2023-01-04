@@ -42,16 +42,22 @@ function td()
 function ts()
 {
     _end=$(task $1 _unique end)
-    _end=$(date -r $_end)
-    desc=$(task $1 _unique description)
-    estimate=$(task $1 _unique estimate)
-    echo Time summary for \"$desc\" copied to clipboard.
-    echo "## Time Summary \n \`\`\` \n Completed $_end\n $(timew summary $desc :all )\nEstimate: $estimate\n\`\`\`" | pbcopy
+    echo $_end
+    if [ -n "$_end" ]; then
+        _end=$(date -r $_end)
+        desc=$(task $1 _unique description)
+        estimate=$(task $1 _unique estimate)
+        echo Time summary for \"$desc\" copied to clipboard.
+        echo "## Time Summary \n \`\`\` \n Completed $_end\n $(timew summary $desc :all )\nEstimate: $estimate\n\`\`\`" | pbcopy
+    else
+        echo "Task not complete. Cannot summarize."
+        return 1
+    fi
 }
 function ta()
 {
     task +ACTIVE
-    task +ACTIVE _id | tr -d '\n'| pbcopy
+    task +ACTIVE _uuid | tr -d '\n'| pbcopy
 }
 
 function tn()
@@ -329,3 +335,6 @@ bindkey -v
 export KEYTIMEOUT=1
 
 
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
