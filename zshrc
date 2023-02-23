@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH/$HOME/bin:/usr/local/bin
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -67,9 +67,13 @@ function tn()
     proj=$(task +ACTIVE _unique project)
     tags=$(task +ACTIVE _unique tags)
     estimate=$(task +ACTIVE _unique estimate)
+    annotations=$(task +ACTIVE export |  jq --arg prefix 'DUMMY' '.[].annotations[] | {entry, description} | join(" - ")'  | sed 's/^/- /' | tr -d \")
     if echo $tags | grep -q "work"
     then
-        note_path="/Users/iaross/sync/obsidian/Work/tasks/${desc}.md"
+        filename=$(echo "$desc" | tr '/' _)
+        note_path="/Users/iaross/sync/obsidian/Work/tasks/${filename}.md"
+        echo $filename
+        echo $note_path
         if [ ! -f $note_path ]
         then
             echo "---" >> $note_path
@@ -77,15 +81,16 @@ function tn()
             echo "tw_project: $proj" >> $note_path
             echo "tw_estimate: $estmagte" >> $note_path
             echo "tw_tags: $tags" >> $note_path
+            echo "tw_annotations:\n$annotations" >> $note_path
             echo "---" >> $note_path
         else
             echo "File exists!"
         fi
         url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${desc}"
         open $url
-        echo "[[${desc}]]" | pbcopy
+        echo $annotations | pbcopy
     else
-        echo "## $desc"| pbcopy
+        echo $annotations| pbcopy
     fi
 }
 
