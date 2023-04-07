@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$PATH/$HOME/bin:/usr/local/bin
+export PATH=`python3 -m site --user-base`/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -33,6 +34,8 @@ alias gap="git add -p"
 alias gd="git --no-pager diff"
 alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
+
+alias ats='atuin search --format "{command} -- (@{host}) {time} - {duration} ({exit})" '
 
 function td()
 {
@@ -86,7 +89,7 @@ function tn()
         else
             echo "File exists!"
         fi
-        url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${desc}"
+        url="obsidian://open?vault=obsidian&file=Work%2Ftasks%2F${filename}"
         open $url
         echo $annotations | pbcopy
     else
@@ -343,3 +346,9 @@ export KEYTIMEOUT=1
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+eval "$(atuin init zsh)"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/iaross/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
