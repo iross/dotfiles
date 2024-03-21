@@ -1,4 +1,5 @@
 # If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$PATH/$HOME/bin:/usr/local/bin
 export PATH=`python3 -m site --user-base`/bin:$PATH
 
@@ -17,6 +18,8 @@ alias kp='kubectl get pods'
 alias kl='kubectl logs -f '
 alias kg='kubectl get '
 alias kc='kubectl'
+alias -g kxd='kubectl -n xdddev'
+alias -g kx='kubectl -n xdd'
 alias c='cd -p '
 alias v='vim '
 alias c='cd -P'
@@ -34,9 +37,36 @@ alias gap="git add -p"
 alias gd="git --no-pager diff"
 alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
+alias fzf="fzf --border sharp"
 
 alias ats='atuin search --format "{command} -- (@{host}) {time} - {duration} ({exit})" '
 
+watchscp () {
+    fswatch -0 *  | while read -d "" event;
+do
+    RE=".*\.(swp|swx)"
+    if [[ $event =~ $RE ]]
+    then
+        :
+    else
+        rel=${event#$PWD}
+        scp "$event" $1:$2$rel
+    fi
+done
+}
+
+flog () {
+     branch="$(
+        git branch --sort=-committerdate --format="%(committerdate:relative)%09%(refname:short)%09%(subject)" \
+        | column -ts $'\t' \
+        | fzf \
+        | sed -E 's/.*ago +([^ ]*) .*/\1/'
+      )"
+     echo $branch
+     git checkout $branch || (
+      echo -n "git co $branch" | pbcopy
+     )
+    }
 function td()
 {
     task done $1
@@ -211,7 +241,10 @@ function gstage ()
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  fzf-tab
   git
+  zsh-syntax-highlighting
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -347,8 +380,15 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-eval "$(atuin init zsh)"
-
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/iaross/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+
+source /Users/iaross/.config/broot/launcher/bash/br
+
+eval "$(atuin init zsh)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(starship init zsh)"
