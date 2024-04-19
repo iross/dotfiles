@@ -232,8 +232,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-repeat'
 Plug 'iross/vim-snippets'
 Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 
 call plug#end()
 set background=dark
 colorscheme desert
+
