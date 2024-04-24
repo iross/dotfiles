@@ -39,12 +39,57 @@ alias gt="git log --graph --oneline --all"
 alias ddd="ssh -L 8080:127.0.0.1:8000 iaross@deepdivesubmit.chtc.wisc.edu"
 alias fzf="fzf --border sharp"
 
+
+export BAT_THEME="Nord"
+
 pag() {
     ag $1 | fzf --delimiter : --preview 'fzf-bat-preview {1} {2}'
 
 }
 
+frg() {
+    rg $1 | fzf --delimiter : --preview 'fzf-bat-preview {1} {2}'
+
+}
+
 eval "$(fzf --zsh)"
+
+kfzf() {
+    namespace=$1
+    resource=$2
+    pod=$(kubectl -n $1 get $2 | fzf | awk '{print $1}')
+    echo $pod
+}
+
+kex() {
+    namespace=$1
+    resource=pod
+    pod=$(kfzf $namespace $resource)
+    kubectl -n $1 exec -it $pod -- /bin/bash
+}
+
+kge() {
+    namespace=$1
+    resource=$2
+    pod=$(kfzf $namespace $resource)
+    kubectl -n $1 get $2 -o yaml $pod | bat --color always -l yaml
+}
+
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+fgst() {
+  # "Nothing to see here, move along"
+  is_in_git_repo || return
+
+  local cmd="${FZF_CTRL_T_COMMAND:-"command git status -s"}"
+
+  eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_CTRL_T_OPTS" fzf -m "$@" | while read -r item; do
+    echo "$item" | awk '{print $2}'
+  done
+  echo
+}
 
 alias ats='atuin search --format "{command} -- (@{host}) {time} - {duration} ({exit})" '
 
