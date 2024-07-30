@@ -21,9 +21,8 @@ fi
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Load the outsides
-eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
+
+#export BAT_THEME="Nord"
 
 # Add in zsh plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -41,7 +40,7 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-
+# Custom aliases and function
 alias ksvc='kubectl get svc'
 alias krm='kubectl delete '
 alias kp='kubectl get pods'
@@ -69,16 +68,13 @@ alias gt="git log --graph --oneline --all"
 alias fzf="fzf --border sharp"
 
 
-
-export BAT_THEME="Nord"
-
 pag() {
     ag $1 | fzf --delimiter : --preview 'fzf-bat-preview {1} {2}'
 
 }
 
 frg() {
-    rg $1 | fzf --delimiter : --preview 'fzf-bat-preview {1} {2}'
+    rg --line-number $1 | fzf --delimiter : --preview 'fzf-bat-preview {1} {2}'
 
 }
 
@@ -208,3 +204,7 @@ function mkd ()
     mkdir $1
     cd $1
 }
+
+# Load the externals last
+eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
