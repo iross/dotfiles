@@ -84,7 +84,14 @@ kfzf() {
     namespace=$1
     resource=$2
     pod=$(kubectl -n $1 get $2 | fzf | awk '{print $1}')
-    echo $pod
+    echo $3
+    if [[ "$3" == "cp" ]]
+    then
+        echo $pod | pbcopy
+        echo "copied $pod to clipboard"
+    else
+        echo $pod
+    fi
 }
 
 klf() {
@@ -206,5 +213,5 @@ function mkd ()
 }
 
 # Load the externals last
-eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
+eval "$(starship init zsh)"
